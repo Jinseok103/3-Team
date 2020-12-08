@@ -70,10 +70,24 @@ void DrawStartMenu()
 	cout << "GO BACK" << endl;
 }
 
-/*void DrawMusicMenu()
+void DrawMusicMenu()
 {
-
-}*/
+	system("cls");
+	gotoxy(10, 2);
+	cout << "******************************";
+	gotoxy(10, 3);
+	cout << "*        Select Music        *";
+	gotoxy(10, 4);
+	cout << "******************************";
+	gotoxy(20, 8);
+	cout << "Luv Letter";
+	gotoxy(20, 9);
+	cout << "Flower Dance";
+	gotoxy(20, 10);
+	cout << "I can't Beat Airman";
+	gotoxy(20, 11);
+	cout << "GO BACK" << endl;
+}
 
 /*void DrawGameover() 
 {

@@ -23,7 +23,7 @@ enum KEYBOARD
 
 MENU MainMenu();
 void StartMenu();
-//void MusicMenu(int mode);
+void MusicMenu(int mode);
 void Info();
 
 

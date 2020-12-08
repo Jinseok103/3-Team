@@ -1,6 +1,7 @@
 #include <iostream>
 #include <conio.h>
 #include "Menu.h"
+#include "Game.h"
 
 using namespace std;
 
@@ -107,10 +108,13 @@ void MusicMenu(int mode)
 			switch (y)
 			{
 			case 0:
+				StartGame(0, mode);
 				break;
 			case 1:
+				StartGame(1, mode);
 				break;
 			case 2:
+				StartGame(2, mode);
 				break;
 			case 3:
 				return;

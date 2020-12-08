@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <conio.h>
 #include <mmsystem.h>
+//#include "Draw.h"
 #include "Game.h"
 #pragma comment(lib, "winmm.lib")
 
@@ -21,9 +22,8 @@ void StartGame(int music, int mode)
 		_getch();
 		break;
 	case 2:
-		PlaySound(L"Voice of Nature.wav", 0, SND_FILENAME | SND_ASYNC);
+		PlaySound(L"I can't Beat Airman", 0, SND_FILENAME | SND_ASYNC);
 		_getch();
 		break;
 	}
 }
-

@@ -4,6 +4,15 @@
 
 using namespace std;
 
+void CursorView(char show) {
+	HANDLE hConsole;
+	CONSOLE_CURSOR_INFO ConsoleCursor;
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	ConsoleCursor.bVisible = show;
+	ConsoleCursor.dwSize = 1;
+	SetConsoleCursorInfo(hConsole, &ConsoleCursor);
+}
+
 void SetConsoleView()
 {
 	system("mode con:cols=50 lines=20");
@@ -21,6 +30,7 @@ void gotoxy(int x, int y)
 void DrawMainMenu()
 {
 	system("cls");
+	CursorView(false);
 	gotoxy(10, 2);
 	cout << "******************************";
 	gotoxy(10, 3);
@@ -38,6 +48,7 @@ void DrawMainMenu()
 void DrawInfo()
 {
 	system("cls");
+	CursorView(false);
 	gotoxy(10, 3);
 	cout << "******************************";
 	gotoxy(10, 4);
@@ -56,6 +67,7 @@ void DrawInfo()
 void DrawStartMenu()
 {
 	system("cls");
+	CursorView(false);
 	gotoxy(10, 2);
 	cout << "******************************";
 	gotoxy(10, 3);
@@ -73,6 +85,7 @@ void DrawStartMenu()
 void DrawMusicMenu()
 {
 	system("cls");
+	CursorView(false);
 	gotoxy(10, 2);
 	cout << "******************************";
 	gotoxy(10, 3);
@@ -102,7 +115,8 @@ void DrawUserCursor(int num_menu, int& y)
 	cout << ">";
 }
 
-void Quit()
+bool Quit()
 {
 	system("cls");
+	return TRUE;
 }

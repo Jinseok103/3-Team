@@ -1,5 +1,6 @@
 #include <iostream>
 
+void CursorView(char show);
 void SetConsoleView();
 void gotoxy(int x, int y);
 void DrawMainMenu();
@@ -8,4 +9,4 @@ void DrawStartMenu();
 void DrawMusicMenu();
 //void DrawGameover();
 void DrawUserCursor(int num_menu, int& y);
-void Quit();
+bool Quit();

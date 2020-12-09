@@ -7,20 +7,6 @@
 int main(void)
 {
 	SetConsoleView();
-	while (true)
-	{
-		switch (MainMenu())
-		{
-		case GAMESTART:
-			StartMenu();
-			break;
-		case INFO:
-			Info();
-			break;
-		case QUIT:
-			Quit();
-			return 0;
-		}
-	}
+	Menu();
 	return 0;
 }

@@ -6,7 +6,7 @@
 #define MAGIC_KEY 224
 #define SPACE 32
 
-enum MENU
+enum MAIN
 {
 	GAMESTART = 0,
 	INFO,
@@ -21,9 +21,20 @@ enum KEYBOARD
 	DOWN = 80
 };
 
-MENU MainMenu();
-void StartMenu();
-void MusicMenu(int mode);
-void Info();
+class Menu {
+private:
+	int num_menu;
+	int y;
+	int input;
+	int mode;
+	bool quit;
+public:
+	Menu();
+	//~Menu();
+	MAIN MainMenu();
+	void StartMenu();
+	void MusicMenu();
+	void Info();
+};
 
 

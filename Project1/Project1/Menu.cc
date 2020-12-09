@@ -5,12 +5,32 @@
 
 using namespace std;
 
-MENU MainMenu()
+Menu::Menu() {
+	quit = false;
+	while (!quit)
+	{
+		switch (MainMenu())
+		{
+		case GAMESTART:
+			StartMenu();
+			break;
+		case INFO:
+			Info();
+			break;
+		case QUIT:
+			quit = Quit();
+			break;
+		}
+	}
+}
+
+MAIN Menu::MainMenu()
 {
-	int num_menu = 3, y = 0;
-	int input = 0;
+	y = 0;
+	input = 0;
 	while (true)
 	{
+		num_menu = 3;
 		DrawMainMenu();
 		DrawUserCursor(num_menu, y);
 		input = _getch();
@@ -42,12 +62,13 @@ MENU MainMenu()
 	}
 }
 
-void StartMenu()
+void Menu::StartMenu()
 {
-	int num_menu = 3, y = 0;
-	int input = 0;
+	y = 0;
+	input = 0;
 	while (true)
 	{
+		num_menu = 3;
 		DrawStartMenu();
 		DrawUserCursor(num_menu, y);
 		input = _getch();
@@ -69,10 +90,12 @@ void StartMenu()
 			switch (y)
 			{
 			case 0:
-				MusicMenu(0);
+				mode = 0;
+				MusicMenu();
 				break;
 			case 1:
-				MusicMenu(1);
+				mode = 1;
+				MusicMenu();
 				break;
 			case 2:
 				return;
@@ -81,12 +104,13 @@ void StartMenu()
 	}
 }
 
-void MusicMenu(int mode)
+void Menu::MusicMenu()
 {
-	int num_menu = 4, y = 0;
-	int input;
+	y = 0;
+	input = _getch();
 	while (true)
 	{
+		num_menu = 4;
 		DrawMusicMenu();
 		DrawUserCursor(num_menu, y);
 		input = _getch();
@@ -97,7 +121,7 @@ void MusicMenu(int mode)
 				y--;
 				break;
 			case DOWN:
-				y++; 
+				y++;
 				break;
 			default:
 				break;
@@ -109,12 +133,15 @@ void MusicMenu(int mode)
 			{
 			case 0:
 				StartGame(0, mode);
+				return;
 				break;
 			case 1:
 				StartGame(1, mode);
+				return;
 				break;
 			case 2:
 				StartGame(2, mode);
+				return;
 				break;
 			case 3:
 				return;
@@ -123,9 +150,7 @@ void MusicMenu(int mode)
 	}
 }
 
-
-void Info()
+void Menu::Info()
 {
 	DrawInfo();
 }
-

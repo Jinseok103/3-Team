@@ -30,7 +30,6 @@ private:
 	bool quit;
 public:
 	Menu();
-	//~Menu();
 	MAIN MainMenu();
 	void StartMenu();
 	void MusicMenu();

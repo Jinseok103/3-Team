@@ -5,6 +5,7 @@
 #include <mmsystem.h>
 //#include "Draw.h"
 #include "Game.h"
+#include "game_jyk.h"
 #pragma comment(lib, "winmm.lib")
 
 using namespace std;
@@ -15,14 +16,17 @@ void StartGame(int music, int mode)
 	{
 	case 0:
 		PlaySound(L"Luv Letter.wav", 0, SND_FILENAME | SND_ASYNC);
+		GamePlay();
 		_getch();
 		break;
 	case 1:
 		PlaySound(L"Flower Dance.wav", 0, SND_FILENAME | SND_ASYNC);
+		GamePlay();
 		_getch();
 		break;
 	case 2:
 		PlaySound(L"I can't Beat Airman", 0, SND_FILENAME | SND_ASYNC);
+		GamePlay();
 		_getch();
 		break;
 	}

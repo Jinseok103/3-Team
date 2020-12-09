@@ -1,4 +1,5 @@
-#include "game.h"
+#include "game_jyk.h"
+#include "Draw.h"
 
 using namespace std;
 
@@ -8,7 +9,7 @@ using namespace std;
 #define RIGHT 77
 #define UP 72
 #define DOWN 80
-
+/*
 void CursorView(char show) {
 	HANDLE hConsole;
 	CONSOLE_CURSOR_INFO ConsoleCursor;
@@ -22,7 +23,7 @@ void gotoxy(int x, int y) {
 	COORD pos = { x,y };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
-
+*/
 GameTable::GameTable(int x, int y) {
 	this->x = x;
 	this->y = y;
@@ -232,7 +233,7 @@ GamePlay::~GamePlay() {
 	delete gt;
 }
 
-
+/*
 
 int main() {
 	CursorView(false);
@@ -241,3 +242,4 @@ int main() {
 	getchar();
 	return 0;
 }
+*/

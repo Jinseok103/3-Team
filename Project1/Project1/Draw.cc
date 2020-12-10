@@ -107,7 +107,7 @@ void DrawMusicMenu()
 	cout << "GO BACK" << endl;
 }
 
-/*void DrawGameover() 
+/*void DrawGameover()
 {
 
 }*/
@@ -126,14 +126,16 @@ bool Quit()
 	return TRUE;
 }
 
-GameTable::GameTable(int x, int y) {
+GameTable::GameTable(int x, int y, int n) {
 	this->x = x;
 	this->y = y;
-	this->speed = 300;
-	this->lv = 1;
-	this->stage = 1;
+	this->mode = n;
+	this->speed = 300 - n * 100;
+	this->lv = n;
+	this->stage = n + 2;
 	this->score = 0;
 	this->cnt = 0;
+	this->life = 3;
 	srand(time(NULL));
 	for (int i = 0; i < y; i++) {
 		vector<int> temp;
@@ -289,6 +291,10 @@ bool GameTable::CheckLevel() {
 }
 
 void GameTable::DrawScoreBoard() {
+	if (mode == -1) {
+		gotoxy(24, 5); printf(" YOUR LIFE :");
+		gotoxy(24, 6); printf("        %6d", life);
+	}
 	gotoxy(24, 15); printf(" YOUR SCORE :");
 	gotoxy(24, 16); printf("        %6d", score);
 }
@@ -296,17 +302,26 @@ void GameTable::DrawScoreBoard() {
 void GameTable::LevelUp() {
 	if (cnt < 5)
 		return;
-	switch (stage % 2) {
+	switch (stage % 4) {
 	case 1:
 		stage++;
 		break;
-	case 0:
-		speed -= 50;
-		break;
 	default:
+		speed -= 50;
 		break;
 	}
 	cnt = 0;
 	gotoxy(5, 15); printf(" LEVEL UP!!");
 	Sleep(1000);
+}
+
+void GameTable::CheckPassNote() {
+	for (int i = 2; i <= 8; i = i + 2)
+		if (table[y - 4][i] != 0) {
+			life--;
+		}
+}
+
+bool GameTable::CheckLife() {
+	return (life == 0) ? true : false;
 }

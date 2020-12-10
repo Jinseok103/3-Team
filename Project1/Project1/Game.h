@@ -9,6 +9,7 @@ private:
 	GameTable* gt;
 public:
 	GamePlay();
+	GamePlay(int n);
 	~GamePlay();
 };
 

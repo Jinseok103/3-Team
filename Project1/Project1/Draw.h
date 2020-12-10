@@ -17,17 +17,19 @@ bool Quit();
 
 class GameTable {
 private:
-	int x; 
-	int y; 
-	vector<vector<int>> table; 
-	vector<int> keyboard; 
+	int x;
+	int y;
+	int mode;
+	vector<vector<int>> table;
+	vector<int> keyboard;
 	int speed;
 	int lv;
 	int stage;
 	int score;
 	int cnt;
+	int life;
 public:
-	GameTable(int x, int y);
+	GameTable(int x, int y, int n);
 	void DrawGameTable();
 	void MoveBlock();
 	void NewBlock();
@@ -37,4 +39,6 @@ public:
 	bool CheckLevel();
 	void DrawScoreBoard();
 	void LevelUp();
+	void CheckPassNote();
+	bool CheckLife();
 };

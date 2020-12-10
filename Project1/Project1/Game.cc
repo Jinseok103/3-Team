@@ -54,7 +54,7 @@ GamePlay::GamePlay(int n)
 		if (CheckEndMusic(start, end, n, 0)) {
 			break;
 		}
-		if (gt->CheckLevel())
+		if (gt->CheckLevel() && CheckEndMusic(start, end, n, 1))
 			gt->NewBlock();
 	}
 }
@@ -110,15 +110,30 @@ void StartGame(int music, int mode)
 bool GamePlay::CheckEndMusic(clock_t start, clock_t end, int music, int check)
 {
 	int playtime = static_cast<int>((end - start) / CLOCKS_PER_SEC);
-	switch (music) {
-	case 0:
-		if (playtime > MUSIC1) return true;
-		else return false;
-	case 1:
-		if (playtime > MUSIC2) return true;
-		else return false;
-	case 2:
-		if (playtime > MUSIC3) return true;
-		else return false;
+	if (check == 0) {
+		switch (music) {
+		case 0:
+			if (playtime > MUSIC1) return true;
+			else return false;
+		case 1:
+			if (playtime > MUSIC2) return true;
+			else return false;
+		case 2:
+			if (playtime > MUSIC3) return true;
+			else return false;
+		}
+	}
+	else if (check == 1) {
+		switch (music) {
+		case 0:
+			if (playtime < MUSIC1 - 11) return true;
+			else return false;
+		case 1:
+			if (playtime < MUSIC2 - 15) return true;
+			else return false;
+		case 2:
+			if (playtime < MUSIC3 - 8) return true;
+			else return false;
+		}
 	}
 }

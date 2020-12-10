@@ -35,10 +35,10 @@ GamePlay::GamePlay()
 
 GamePlay::GamePlay(int n)
 {
-	gt = new GameTable(TABLE_X, TABLE_Y, n); //게임 판 그리기 객체 생성
-	gt->DrawGameTable(); // 게임판을 그린다.
+	gt = new GameTable(TABLE_X, TABLE_Y, n); 
+	gt->DrawGameTable(); 
 	gt->DrawScoreBoard();
-	while (true) { // 방향키 입력 이벤트
+	while (true) { 
 		gt->CheckKey();
 		gt->CheckPassNote();
 		system("cls");
@@ -86,7 +86,6 @@ void StartGame(int music, int mode)
 		break;
 	case 2:
 		Quit();
-<<<<<<< HEAD
 		if (mode == 1) {
 			PlaySound(L"I can't Beat Airman.wav", 0, SND_FILENAME | SND_ASYNC | SND_LOOP);
 			GamePlay();
@@ -95,10 +94,6 @@ void StartGame(int music, int mode)
 			PlaySound(L"I can't Beat Airman.wav", 0, SND_FILENAME | SND_ASYNC);
 			GamePlay(2);
 		}
-=======
-		PlaySound(L"I can't Beat Airman.wav", 0, SND_FILENAME | SND_ASYNC);
-		GamePlay();
->>>>>>> fb3763406485937a05ea6642b4e129a347d5de94
 		_getch();
 		break;
 	}

@@ -8,6 +8,9 @@
 
 #define TABLE_X 11
 #define TABLE_Y 30
+#define MUSIC1 272
+#define MUSIC2 270
+#define MUSIC3 222
 
 using namespace std;
 
@@ -35,17 +38,22 @@ GamePlay::GamePlay()
 
 GamePlay::GamePlay(int n)
 {
-	gt = new GameTable(TABLE_X, TABLE_Y, n); 
-	gt->DrawGameTable(); 
+	start = clock();
+	gt = new GameTable(TABLE_X, TABLE_Y, n);
+	gt->DrawGameTable();
 	gt->DrawScoreBoard();
-	while (true) { 
+	while (true) {
 		gt->CheckKey();
 		gt->CheckPassNote();
 		system("cls");
 		gt->DrawGameTable();
 		gt->DrawScoreBoard();
 		gt->MoveBlock();
+		end = clock();
 		Sleep(gt->GetSpeed());
+		if (CheckEndMusic(start, end, n, 0)) {
+			break;
+		}
 		if (gt->CheckLevel())
 			gt->NewBlock();
 	}
@@ -96,5 +104,21 @@ void StartGame(int music, int mode)
 		}
 		_getch();
 		break;
+	}
+}
+
+bool GamePlay::CheckEndMusic(clock_t start, clock_t end, int music, int check)
+{
+	int playtime = static_cast<int>((end - start) / CLOCKS_PER_SEC);
+	switch (music) {
+	case 0:
+		if (playtime > MUSIC1) return true;
+		else return false;
+	case 1:
+		if (playtime > MUSIC2) return true;
+		else return false;
+	case 2:
+		if (playtime > MUSIC3) return true;
+		else return false;
 	}
 }

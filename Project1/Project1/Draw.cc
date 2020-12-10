@@ -107,7 +107,7 @@ void DrawMusicMenu()
 	cout << "GO BACK" << endl;
 }
 
-void DrawGameEnd(int mode) 
+void DrawGameEnd(int mode)
 {
 	gotoxy(0, 11); printf("----------------------");
 	gotoxy(0, 12); printf("                      ");
@@ -120,6 +120,57 @@ void DrawGameEnd(int mode)
 	gotoxy(0, 14); printf("                      ");
 	gotoxy(0, 15); printf("----------------------");
 	system("pause>null");
+}
+
+void DrawHighScore(int music, int mode)
+{
+	system("cls");
+	string line;
+	fstream log_file;
+	if (mode == 0) {				// normal
+		switch (music) {
+		case 0:
+			log_file.open("Luv_Letter_normal.txt", ios::in);
+			break;
+		case 1:
+			log_file.open("Flower_Dance_normal.txt", ios::in);
+			break;
+		case 2:
+			log_file.open("Airman_normal.txt", ios::in);
+			break;
+		default:
+			break;
+		}
+	}
+	else {							// inf
+		switch (music) {
+		case 0:
+			log_file.open("Luv_Letter_inf.txt", ios::in);
+			break;
+		case 1:
+			log_file.open("Flower_Dance_inf.txt", ios::in);
+			break;
+		case 2:
+			log_file.open("Airman_inf.txt", ios::in);
+			break;
+		default:
+			break;
+		}
+	}
+	gotoxy(10, 3);
+	cout << "**********High Score**********";
+	if (log_file.is_open()) {
+		log_file.seekg(0, ios::beg);
+		for (int i = 0; i < 10; i++) {
+			getline(log_file, line);
+			gotoxy(13, 6 + 2 * i);
+			if (i != 9)
+				cout << "No. " << i + 1 << " " << stoi(line);
+			else
+				cout << "No." << i + 1 << " " << stoi(line);
+		}
+	}
+	log_file.close();
 }
 
 void DrawUserCursor(int num_menu, int& y)
@@ -145,12 +196,10 @@ GameTable::GameTable(int x, int y, int n) {
 	this->stage = n + 2;
 	this->score = 0;
 	this->cnt = 0;
-	this->life = 3;
 	this->combo = 0;
 	this->combo_bonus = 1;
-	this->high_score = 0;
 	this->life = 3;
-	for (int i = 0; i < 10; i++) 
+	for (int i = 0; i < 10; i++)
 		this->cur_highscore.push(0);
 	this->song_cur_highscore = 0;
 	srand(time(NULL));
@@ -259,6 +308,10 @@ int GameTable::GetSpeed() {
 	return speed;
 }
 
+int GameTable::GetScore() {
+	return score;
+}
+
 void GameTable::CheckKey() {
 	int key;
 
@@ -302,6 +355,7 @@ void GameTable::CheckCombo(int i, int dir) {
 	}
 }
 
+
 bool GameTable::CheckLevel() {
 	if (lv < 5)
 		lv++;
@@ -317,13 +371,12 @@ void GameTable::DrawScoreBoard() {
 	}
 	gotoxy(24, 15); printf(" YOUR SCORE :");
 	gotoxy(24, 16); printf("        %6d", score);
-	gotoxy(24, 17); printf(" COMBO : ");
+	gotoxy(24, 17); printf(" COMBO : ");			// changed
 	gotoxy(24, 18); printf("        %6d", combo);
-	gotoxy(24, 19); printf(" HIGH SCORE :");
-	gotoxy(24, 20); printf("        %6d", high_score);
 
-	gotoxy(24, 21); printf("%s", music_name.c_str());
-	gotoxy(24, 22); printf("highscore song:    %6d", song_cur_highscore);
+	gotoxy(24, 3);  printf(" %s", music_name.c_str());
+	gotoxy(24, 19); printf(" HIGH SCORE : ");
+	gotoxy(24, 20); printf("        %6d", song_cur_highscore);
 }
 
 void GameTable::LevelUp() {
@@ -338,16 +391,16 @@ void GameTable::LevelUp() {
 		break;
 	}
 	cnt = 0;
-	gotoxy(5, 15); printf(" LEVEL UP!!");
+	gotoxy(5, 13); printf(" LEVEL UP!!");
 	Sleep(1000);
 }
 
 void GameTable::CheckPassNote() {
 	for (int i = 2; i <= 8; i = i + 2)
 		if (table[y - 4][i] != 0) {
-			life--;
 			combo = 0;
 			combo_bonus = 1;
+			life--;
 			gotoxy(24, 18); printf("        %6d", combo);
 		}
 }
@@ -356,7 +409,7 @@ bool GameTable::CheckLife() {
 	return (life == 0) ? true : false;
 }
 
-void GameTable::LoadHighScore(int mode, int song_index) 
+void GameTable::LoadHighScore(int mode, int song_index)
 {
 	string line;
 	string init_line = "0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n";
@@ -364,15 +417,15 @@ void GameTable::LoadHighScore(int mode, int song_index)
 	if (mode == 0) {				// normal
 		switch (song_index) {
 		case 0:
-			music_name = "Luv_Letter_normal";
+			music_name = "Luv_Letter";
 			log_file.open("Luv_Letter_normal.txt", ios::in);
 			break;
 		case 1:
-			music_name = "Flower_Dance_normal";
+			music_name = "Flower_Dance";
 			log_file.open("Flower_Dance_normal.txt", ios::in);
 			break;
 		case 2:
-			music_name = "I can't Beat Airman_normal";
+			music_name = "I can't Beat Airman";
 			log_file.open("Airman_normal.txt", ios::in);
 			break;
 		default:
@@ -382,15 +435,15 @@ void GameTable::LoadHighScore(int mode, int song_index)
 	else {							// inf
 		switch (song_index) {
 		case 0:
-			music_name = "Luv_Letter_inf";
+			music_name = "Luv_Letter";
 			log_file.open("Luv_Letter_inf.txt", ios::in);
 			break;
 		case 1:
-			music_name = "Flower_Dance_inf";
+			music_name = "Flower_Dance";
 			log_file.open("Flower_Dance_inf.txt", ios::in);
 			break;
 		case 2:
-			music_name = "I can't Beat Airman_normal";
+			music_name = "I can't Beat Airman";
 			log_file.open("Airman_inf.txt", ios::in);
 			break;
 		default:
@@ -437,7 +490,7 @@ void GameTable::LoadHighScore(int mode, int song_index)
 				break;
 			}
 		}
-		
+
 		log_file.write(init_line.c_str(), init_line.size());
 	}
 	log_file.close();
@@ -466,7 +519,7 @@ void GameTable::ChangeHighScore(int new_score, int song_index) {
 	else {							// inf
 		switch (song_index) {
 		case 0:
-			log_file.open("Luv_Letter_normal.txt", ios::out);
+			log_file.open("Luv_Letter_inf.txt", ios::out);
 			break;
 		case 1:
 			log_file.open("Flower_Dance_inf.txt", ios::out);
@@ -486,7 +539,7 @@ void GameTable::ChangeHighScore(int new_score, int song_index) {
 	for (int i = 0; i < 10; i++) {
 		tmp[i] = cur_highscore.top();
 		cur_highscore.pop();
-	} 
+	}
 	for (int i = 0; i < 10; i++) {
 		line = to_string(tmp[9 - i]);
 		new_high_score.append(line);

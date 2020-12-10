@@ -12,6 +12,7 @@
 #define MUSIC2 270
 #define MUSIC3 222
 
+int song_index = 0;
 using namespace std;
 
 GamePlay::GamePlay()
@@ -52,8 +53,8 @@ GamePlay::GamePlay(int n)
 		gt->DrawGameTable();
 		gt->DrawScoreBoard();
 		gt->MoveBlock();
-		end = clock();
 		Sleep(gt->GetSpeed());
+		end = clock();
 		if (CheckEndMusic(start, end, n, 0)) {
 			gt->ChangeHighScore(gt->GetScore(), song_index);
 			break;
@@ -74,6 +75,7 @@ void StartGame(int music, int mode)
 	{
 	case 0:
 		Quit();
+		song_index = 0;
 		if (mode == 1) {
 			PlaySound(L"Luv Letter.wav", 0, SND_FILENAME | SND_ASYNC | SND_LOOP);
 			GamePlay();
@@ -85,6 +87,7 @@ void StartGame(int music, int mode)
 		break;
 	case 1:
 		Quit();
+		song_index = 1;
 		if (mode == 1) {
 			PlaySound(L"Flower Dance.wav", 0, SND_FILENAME | SND_ASYNC | SND_LOOP);
 			GamePlay();
@@ -96,6 +99,7 @@ void StartGame(int music, int mode)
 		break;
 	case 2:
 		Quit();
+		song_index = 2;
 		if (mode == 1) {
 			PlaySound(L"I can't Beat Airman.wav", 0, SND_FILENAME | SND_ASYNC | SND_LOOP);
 			GamePlay();
@@ -108,6 +112,7 @@ void StartGame(int music, int mode)
 	}
 	PlaySound(NULL, 0, 0);
 	DrawGameEnd(mode);
+	DrawHighScore(music, mode);
 	_getch();
 }
 

@@ -15,6 +15,7 @@ void DrawInfo();
 void DrawStartMenu();
 void DrawMusicMenu();
 void DrawGameEnd(int mode);
+void DrawHighScore(int music, int mode);
 void DrawUserCursor(int num_menu, int& y);
 bool Quit();
 
@@ -30,19 +31,22 @@ private:
 	int stage;
 	int score;
 	int cnt;
+	int combo; 
+	int combo_bonus;
 	int life;
 	fstream log_file;
 	priority_queue<int, vector<int>, greater<int>> cur_highscore;
 	int song;
 	string music_name;
 	int song_cur_highscore;
-
+	int score_index[10];
 public:
 	GameTable(int x, int y, int n);
 	void DrawGameTable();
 	void MoveBlock();
 	void NewBlock();
 	int GetSpeed();
+	int GetScore();
 	void CheckKey();
 	void CheckCombo(int i, int dir);
 	bool CheckLevel();

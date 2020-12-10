@@ -11,7 +11,7 @@ void DrawMainMenu();
 void DrawInfo();
 void DrawStartMenu();
 void DrawMusicMenu();
-//void DrawGameover();
+void DrawGameEnd(int mode);
 void DrawUserCursor(int num_menu, int& y);
 bool Quit();
 

@@ -107,10 +107,20 @@ void DrawMusicMenu()
 	cout << "GO BACK" << endl;
 }
 
-/*void DrawGameover()
+void DrawGameEnd(int mode) 
 {
-
-}*/
+	gotoxy(0, 11); printf("----------------------");
+	gotoxy(0, 12); printf("                      ");
+	if (mode == 1) {
+		gotoxy(0, 13); printf("       Game Over      ");
+	}
+	else {
+		gotoxy(0, 13); printf("       Game Clear     ");
+	}
+	gotoxy(0, 14); printf("                      ");
+	gotoxy(0, 15); printf("----------------------");
+	system("pause>null");
+}
 
 void DrawUserCursor(int num_menu, int& y)
 {

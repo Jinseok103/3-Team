@@ -78,7 +78,6 @@ void StartGame(int music, int mode)
 			PlaySound(L"Luv Letter.wav", 0, SND_FILENAME | SND_ASYNC);
 			GamePlay(0);
 		}
-		_getch();
 		break;
 	case 1:
 		Quit();
@@ -90,7 +89,6 @@ void StartGame(int music, int mode)
 			PlaySound(L"Flower Dance.wav", 0, SND_FILENAME | SND_ASYNC);
 			GamePlay(1);
 		}
-		_getch();
 		break;
 	case 2:
 		Quit();
@@ -102,9 +100,11 @@ void StartGame(int music, int mode)
 			PlaySound(L"I can't Beat Airman.wav", 0, SND_FILENAME | SND_ASYNC);
 			GamePlay(2);
 		}
-		_getch();
 		break;
 	}
+	PlaySound(NULL, 0, 0);
+	DrawGameEnd(mode);
+	_getch();
 }
 
 bool GamePlay::CheckEndMusic(clock_t start, clock_t end, int music, int check)

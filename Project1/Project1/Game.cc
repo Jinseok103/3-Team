@@ -52,7 +52,7 @@ void StartGame(int music, int mode)
 		break;
 	case 2:
 		Quit();
-		PlaySound(L"Voice of Nature.wav", 0, SND_FILENAME | SND_ASYNC);
+		PlaySound(L"I can't Beat Airman.wav", 0, SND_FILENAME | SND_ASYNC);
 		GamePlay();
 		_getch();
 		break;

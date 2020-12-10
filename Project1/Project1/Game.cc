@@ -86,6 +86,7 @@ void StartGame(int music, int mode)
 		break;
 	case 2:
 		Quit();
+<<<<<<< HEAD
 		if (mode == 1) {
 			PlaySound(L"I can't Beat Airman.wav", 0, SND_FILENAME | SND_ASYNC | SND_LOOP);
 			GamePlay();
@@ -94,6 +95,10 @@ void StartGame(int music, int mode)
 			PlaySound(L"I can't Beat Airman.wav", 0, SND_FILENAME | SND_ASYNC);
 			GamePlay(2);
 		}
+=======
+		PlaySound(L"I can't Beat Airman.wav", 0, SND_FILENAME | SND_ASYNC);
+		GamePlay();
+>>>>>>> fb3763406485937a05ea6642b4e129a347d5de94
 		_getch();
 		break;
 	}

@@ -54,6 +54,6 @@ public:
 	void LevelUp();
 	void CheckPassNote();
 	bool CheckLife();
-	void LoadHighScore(int mode, int song_index);
+	void LoadHighScore(int song_index);
 	void ChangeHighScore(int new_score, int song_index);
 };

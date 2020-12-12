@@ -47,6 +47,8 @@ void DrawMainMenu()
 	gotoxy(20, 16);
 	cout << "GameInfo";
 	gotoxy(20, 17);
+	cout << "HighScore";
+	gotoxy(20, 18);
 	cout << "Quit" << endl;
 }
 
@@ -54,18 +56,16 @@ void DrawInfo()
 {
 	system("cls");
 	CursorView(false);
-	gotoxy(10, 13);
-	cout << "******************************";
-	gotoxy(10, 14);
-	cout << "        Developed BY          ";
-	gotoxy(10, 15);
-	cout << "        Choi In Tae           ";
-	gotoxy(10, 16);
-	cout << "        Kim Jin Seok          ";
-	gotoxy(10, 17);
-	cout << "        Jeong Yeun Keun       ";
-	gotoxy(10, 18);
-	cout << "******************************";
+	gotoxy(10, 10); cout << "------------------------------";
+	gotoxy(10, 11); cout << "      Developed BY Team 3     ";
+	gotoxy(10, 12); cout << "        Choi In Tae           ";
+	gotoxy(10, 13); cout << "        Kim Jin Seok          ";
+	gotoxy(10, 14); cout << "       Jeong Yoon Keun        ";
+	gotoxy(10, 15); cout << "------------------------------";
+	gotoxy(9,  16); cout << "MUSIC1 : Luv Letter - DJ Okawari";
+	gotoxy(8,  17); cout << "MUSIC2 : Flower Dance - DJ Okawari";
+	gotoxy(11, 18); cout << "MUSIC3 : I can't Beat Airman";
+	gotoxy(10, 19); cout << "------------------------------";
 	system("pause>null");
 }
 
@@ -126,8 +126,9 @@ void DrawHighScore(int music, int mode)
 {
 	system("cls");
 	string line;
+	string init_line = "0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n";
 	fstream log_file;
-	if (mode == 0) {				// normal
+	if (mode == 0) {				
 		switch (music) {
 		case 0:
 			log_file.open("Luv_Letter_normal.txt", ios::in);
@@ -142,7 +143,7 @@ void DrawHighScore(int music, int mode)
 			break;
 		}
 	}
-	else {							// inf
+	else {							
 		switch (music) {
 		case 0:
 			log_file.open("Luv_Letter_inf.txt", ios::in);
@@ -170,7 +171,48 @@ void DrawHighScore(int music, int mode)
 				cout << "No." << i + 1 << " " << stoi(line);
 		}
 	}
+	else {
+		if (mode == 0) {				
+			switch (music) {
+			case 0:
+				log_file.open("Luv_Letter_normal.txt", ios::app);
+				break;
+			case 1:
+				log_file.open("Flower_Dance_normal.txt", ios::app);
+				break;
+			case 2:
+				log_file.open("Airman_normal.txt", ios::app);
+				break;
+			default:
+				break;
+			}
+		}
+		else {							
+			switch (music) {
+			case 0:
+				log_file.open("Luv_Letter_inf.txt", ios::app);
+				break;
+			case 1:
+				log_file.open("Flower_Dance_inf.txt", ios::app);
+				break;
+			case 2:
+				log_file.open("Airman_inf.txt", ios::app);
+				break;
+			default:
+				break;
+			}
+		}
+		log_file.write(init_line.c_str(), init_line.size());
+		for (int i = 0; i < 10; i++) {
+			gotoxy(13, 6 + 2 * i);
+			if (i != 9)
+				cout << "No. " << i + 1 << " " << 0;
+			else
+				cout << "No." << i + 1 << " " << 0;
+		}
+	}
 	log_file.close();
+	system("pause>null");
 }
 
 void DrawUserCursor(int num_menu, int& y)
@@ -376,7 +418,12 @@ void GameTable::DrawScoreBoard() {
 
 	gotoxy(24, 3);  printf(" %s", music_name.c_str());
 	gotoxy(24, 19); printf(" HIGH SCORE : ");
-	gotoxy(24, 20); printf("        %6d", song_cur_highscore);
+	if (score < song_cur_highscore) {
+		gotoxy(24, 20); printf("        %6d", song_cur_highscore);
+	}
+	else {
+		gotoxy(24, 20); printf("        %6d", score);
+	}
 }
 
 void GameTable::LevelUp() {
@@ -409,12 +456,12 @@ bool GameTable::CheckLife() {
 	return (life == 0) ? true : false;
 }
 
-void GameTable::LoadHighScore(int mode, int song_index)
+void GameTable::LoadHighScore(int song_index)
 {
 	string line;
 	string init_line = "0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n";
 
-	if (mode == 0) {				// normal
+	if (mode != -1) {				// normal
 		switch (song_index) {
 		case 0:
 			music_name = "Luv_Letter";
@@ -460,7 +507,7 @@ void GameTable::LoadHighScore(int mode, int song_index)
 		song_cur_highscore = stoi(line);
 	}
 	else {
-		if (mode == 0) {				// normal
+		if (mode != -1) {				// normal
 			switch (song_index) {
 			case 0:
 				log_file.open("Luv_Letter_normal.txt", ios::app);
@@ -501,7 +548,7 @@ void GameTable::ChangeHighScore(int new_score, int song_index) {
 	string new_high_score;
 	int tmp[20];
 
-	if (mode == 0) {				// normal
+	if (mode != -1) {				// normal
 		switch (song_index) {
 		case 0:
 			log_file.open("Luv_Letter_normal.txt", ios::out);

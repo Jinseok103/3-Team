@@ -10,6 +10,7 @@ enum MAIN
 {
 	GAMESTART = 0,
 	INFO,
+	HIGHSCORE,
 	QUIT
 };
 
@@ -27,6 +28,7 @@ private:
 	int y;
 	int input;
 	int mode;
+	bool show;
 	bool quit;
 public:
 	Menu();

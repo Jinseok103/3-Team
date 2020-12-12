@@ -19,7 +19,7 @@ GamePlay::GamePlay()
 {
 	gt = new GameTable(TABLE_X, TABLE_Y, -1);
 	gt->DrawGameTable();
-	gt->LoadHighScore(1, song_index);
+	gt->LoadHighScore(song_index);
 	gt->DrawScoreBoard();
 	while (true) {
 		gt->CheckKey();
@@ -44,7 +44,7 @@ GamePlay::GamePlay(int n)
 	start = clock();
 	gt = new GameTable(TABLE_X, TABLE_Y, n);
 	gt->DrawGameTable();
-	gt->LoadHighScore(0, song_index);
+	gt->LoadHighScore(song_index);
 	gt->DrawScoreBoard();
 	while (true) {
 		gt->CheckKey();
@@ -113,7 +113,7 @@ void StartGame(int music, int mode)
 	PlaySound(NULL, 0, 0);
 	DrawGameEnd(mode);
 	DrawHighScore(music, mode);
-	_getch();
+	//_getch();
 }
 
 bool GamePlay::CheckEndMusic(clock_t start, clock_t end, int music, int check)

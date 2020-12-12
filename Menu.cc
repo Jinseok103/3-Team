@@ -11,13 +11,18 @@ Menu::Menu() {
 	{
 		switch (MainMenu())
 		{
-		case GAMESTART:
+		case GAMESTART :
+			show = false;
 			StartMenu();
 			break;
-		case INFO:
+		case INFO :
 			Info();
 			break;
-		case QUIT:
+		case HIGHSCORE :
+			show = true;
+			StartMenu();
+			break;
+		case QUIT :
 			quit = Quit();
 			break;
 		}
@@ -30,7 +35,7 @@ MAIN Menu::MainMenu()
 	input = 0;
 	while (true)
 	{
-		num_menu = 3;
+		num_menu = 4;
 		DrawMainMenu();
 		DrawUserCursor(num_menu, y);
 		input = _getch();
@@ -56,6 +61,8 @@ MAIN Menu::MainMenu()
 			case 1:
 				return INFO;
 			case 2:
+				return HIGHSCORE;
+			case 3:
 				return QUIT;
 			}
 		}
@@ -132,15 +139,24 @@ void Menu::MusicMenu()
 			switch (y)
 			{
 			case 0:
-				StartGame(0, mode);
+				if(!show)
+					StartGame(0, mode);
+				else
+					DrawHighScore(0, mode);
 				return;
 				break;
 			case 1:
-				StartGame(1, mode);
+				if (!show)
+					StartGame(1, mode);
+				else
+					DrawHighScore(1, mode);
 				return;
 				break;
 			case 2:
-				StartGame(2, mode);
+				if (!show)
+					StartGame(2, mode);
+				else
+					DrawHighScore(2, mode);
 				return;
 				break;
 			case 3:
